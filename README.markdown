@@ -1,10 +1,12 @@
 # gelf-php
 
-[![Build Status](https://secure.travis-ci.org/Graylog2/gelf-php.png?branch=master)](http://travis-ci.org/Graylog2/gelf-php)
+[![Build Status](https://secure.travis-ci.org/NextWebVentures/gelf-php.png?branch=master)](http://travis-ci.org/NextWebVentures/gelf-php)
 
 PHP classes to send [GELF (Graylog extended log format)](http://www.graylog2.org/about/gelf) messages
 
-Issue tracker: [JIRA gelf-php](http://jira.graylog2.org/browse/GELFPHP)
+Issue tracker:
+ * [Our Github Issues](https://github.com/NextWebVentures/gelf-php/issues)
+ * [Upstream JIRA gelf-php](http://jira.graylog2.org/browse/GELFPHP)
 
 ## Author
 

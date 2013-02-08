@@ -1,8 +1,8 @@
 {
-    "name": "graylog2/gelf-php",
+    "name": "NextWebVentures/gelf-php",
     "description": "PHP classes to send GELF (Graylog extended log format) messages",
     "keywords": ["log","logging"],
-    "homepage": "http://github.com/Graylog2/gelf-php",
+    "homepage": "http://github.com/NextWebVentures/gelf-php",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -10,6 +10,12 @@
             "name": "Lennart Koopmann",
             "email": "lennart@socketfeed.com",
             "homepage": "http://www.lennartkoopmann.net/"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/NextWebVentures/gelf-php"
         }
     ],
     "autoload": {
