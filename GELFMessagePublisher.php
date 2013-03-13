@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Class GELFMessagePublisher
+ */
 class GELFMessagePublisher {
     /**
      * @var integer
@@ -70,8 +74,8 @@ class GELFMessagePublisher {
     /**
      * Publishes a GELFMessage, returns false if an error occured during write
      *
+     * @param \GELFMessage $message
      * @throws UnexpectedValueException
-     * @param unknown_type $message
      * @return boolean
      */
     public function publish(GELFMessage $message) {
@@ -156,7 +160,7 @@ class GELFMessagePublisher {
      * @return boolean
      */
     protected function isMessageSizeGreaterChunkSize($preparedMessage) {
-        return (strlen($preparedMessage) > $this->chunkSize);
+        return (mb_strlen($preparedMessage) > $this->chunkSize);
     }
 
     /**
@@ -171,7 +175,18 @@ class GELFMessagePublisher {
      * @return array
      */
     protected function getMessageChunks($preparedMessage) {
-        return str_split($preparedMessage, $this->chunkSize);
+        //return str_split($preparedMessage, $this->chunkSize);
+
+        if ($this->chunkSize > 0) {
+            $return = array();
+            $length = mb_strlen($preparedMessage);
+            for ($i = 0; $i < $length; $i += $this->chunkSize) {
+                $return[] = mb_substr($preparedMessage, $i, $this->chunkSize);
+            }
+            return $return;
+        }
+
+        return preg_split("//u", $preparedMessage, -1, PREG_SPLIT_NO_EMPTY);
     }
 
     /**
