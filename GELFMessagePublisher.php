@@ -20,6 +20,12 @@ class GELFMessagePublisher {
     const GRAYLOG2_DEFAULT_PORT = 12201;
 
     /**
+     * Default socket timeout (3sec)`
+     * @var integer
+     */
+    const GRAYLOG2_DEFAULT_TIMEOUT = 3;
+
+    /**
      * @var string
      */
     const GRAYLOG2_PROTOCOL_VERSION = '1.0';
@@ -69,6 +75,16 @@ class GELFMessagePublisher {
         $this->hostname = $hostname;
         $this->port = $port;
         $this->chunkSize = $chunkSize;
+    }
+
+    /**
+     * Destructor - shut down open sockets
+     */
+    public function __destruct()
+    {
+        if (is_resource($this->streamSocketClient)) {
+            stream_socket_shutdown($this->streamSocketClient, STREAM_SHUT_RDWR);
+        }
     }
 
     /**
@@ -148,9 +164,12 @@ class GELFMessagePublisher {
      */
     protected function getSocketConnection() {
         if (!$this->streamSocketClient) {
-            $this->streamSocketClient = stream_socket_client(sprintf('udp://%s:%d',
-                                                                     gethostbyname($this->hostname),
-                                                                     $this->port));
+            $this->streamSocketClient = stream_socket_client(
+                sprintf('udp://%s:%d', gethostbyname($this->hostname), $this->port),
+                $errno,
+                $errmsg,
+                self::GRAYLOG2_DEFAULT_TIMEOUT
+            );
         }
         return $this->streamSocketClient;
     }
